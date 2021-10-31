@@ -1,0 +1,27 @@
+Data cleaning and wrangling
+#Data cleaning sheet
+Removing extra white spaces: Find and Replace; =TRIM(B2) --> Copy-Paste Values
+Removing numbers, parenthesis, (or), (kha), etc: Learning from the earlier attempt of creating pivot table to One-word names, I understood to search for and remove extra word such as [(kha), (ka), (Kh), (or), 1, 2, 3, -,  UAB, (, )] from the beginning with Find and Replace
+PROPER function: =PROPER(B2) --> Copy-Paste Values
+Name word counts: Used IF and LEN function by substracting white spaces to identify the longest name, =IF(LEN(TRIM(B2))=0,0,LEN(TRIM(B2))-LEN(SUBSTITUTE(B2," ",""))+1)
+Separating the names: Now that I've learned that the longest name is eight words, I used Text to Columns Wizard after inserting eight columns
+Putting all the individual words into a single column: Used Unpivot Columns from Power Query Editor, resulting in 83,235 individual words (rows), loaded as both Pivot Table and normal Table
+
+Analysis
+#Analysis part-1 sheet
+Identifying Unique names: With =UNIQUE(D2:D83236) --> Copy-Paste Values, resulting in 1,797 unique names
+Counting Unique names based on gender: With COUNTIFS function, separated the counts of Male and Female representation for each word, =COUNTIFS(D2:D83236, H2, B2:B83236,"Male")
+
+#Answer to Q1 sheet
+Simple adding and dividing function: =B2+C2, B2/D2, C2/D2
+
+#Analysis part-2 sheet
+Matching the likelihood percentage to each word of each name and calculating the likelihood to be male: Used XLOOKUP function to match the unique name/word to the male percentage for each word of each name, =XLOOKUP(D2,$M$2:$M$1798,$N$2:$N$1798)
+From that added up the Male percentage per word, divided by the word counts of each name: =SUM(Z2:AG2)/COUNT(Z2:AG2)
+From that predict the gender of each name: Used IF function, =IF(AH2>50%,"Male","Female")
+
+#Answer to Q2 sheet
+Comparing with actual gender record: Added a column of actual gender and compared, =IF(L2=M2, "Accurate","Inaccurate")
+
+Visualization
+Used Pivot to produce piechart and bargraph showing the accuracy of the total datasets, and the accuracy of Male and Female
