@@ -8,20 +8,16 @@ Separating the names: Now that I've learned that the longest name is eight words
 Putting all the individual words into a single column: Used Unpivot Columns from Power Query Editor, resulting in 83,235 individual words (rows), loaded as both Pivot Table and normal Table
 
 Analysis
-#Analysis part-1 sheet
+#Analysis and answer to Q1 sheet
 Identifying Unique names: With =UNIQUE(D2:D83236) --> Copy-Paste Values, resulting in 1,797 unique names
 Counting Unique names based on gender: With COUNTIFS function, separated the counts of Male and Female representation for each word, =COUNTIFS(D2:D83236, H2, B2:B83236,"Male")
+Simple adding and dividing function: =I2+J2, I2/K2, J2/K2
 
-#Answer to Q1 sheet
-Simple adding and dividing function: =B2+C2, B2/D2, C2/D2
-
-#Analysis part-2 sheet
-Matching the likelihood percentage to each word of each name and calculating the likelihood to be male: Used XLOOKUP function to match the unique name/word to the male percentage for each word of each name, =XLOOKUP(D2,$M$2:$M$1798,$N$2:$N$1798)
-From that added up the Male percentage per word, divided by the word counts of each name: =SUM(Z2:AG2)/COUNT(Z2:AG2)
-From that predict the gender of each name: Used IF function, =IF(AH2>50%,"Male","Female")
-
-#Answer to Q2 sheet
-Comparing with actual gender record: Added a column of actual gender and compared, =IF(L2=M2, "Accurate","Inaccurate")
+#Analysis and answer to Q2 sheet
+Matching the likelihood percentage to each word of each name and calculating the likelihood to be male: Used XLOOKUP function to match the unique name/word to the male percentage for each word of each name with IFERROR function to avoid #N/A, =IFERROR(XLOOKUP(C2,$L$2:$L$1798,$M$2:$M$1798),"")
+From that added up the Male percentage per word, divided by the word counts of each name: =SUM(O2:V2)/COUNT(O2:V2)
+From that predict the gender of each name: Used IF function, =IF(W2>50%,"Male","Female")
+Comparing with actual gender record: Added a column of actual gender (Column Y) and compared, =IF(X2=Y2, "Accurate","Inaccurate")
 
 Visualization
 Used Pivot to produce piechart and bargraph showing the accuracy of the total datasets, and the accuracy of Male and Female
